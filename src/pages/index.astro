@@ -1,16 +1,1370 @@
 ---
+const services = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>`,
+    title: "Reforma Residencial",
+    desc: "Entulho de reforma de casa, apartamento ou condomínio. Caçamba entregue em até 2h.",
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>`,
+    title: "Obra Comercial",
+    desc: "Demolições parciais, reboco, construção. Atendemos obras de médio e grande porte.",
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"/></svg>`,
+    title: "Limpeza de Terreno",
+    desc: "Mato, madeira velha, entulho de limpeza. Ótimo para preparar terrenos para construção.",
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>`,
+    title: "Mudança e Descarte",
+    desc: "Móveis velhos, eletrodomésticos e volumes grandes. Descarte responsável e com licença.",
+  },
+];
+
+const steps = [
+  { num: "01", title: "Solicite pelo WhatsApp", desc: "Informe seu endereço e o tipo de material. Em minutos você recebe o orçamento." },
+  { num: "02", title: "Agendamos a entrega", desc: "Definimos dia e hora. Entrega em até 2h para endereços em São Paulo." },
+  { num: "03", title: "Encha e nos chame", desc: "Quando estiver cheia, entre em contato. Retiramos no mesmo dia." },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>CaçambaExpress — Aluguel de Caçamba em São Paulo</title>
+    <meta name="description" content="Aluguel de caçamba para entulho em São Paulo. Entrega rápida, nota fiscal, preço justo. Solicite agora pelo WhatsApp." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-left">
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            São Paulo e Grande SP
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Seg–Dom, 6h–22h
+          </span>
+        </div>
+        <div class="topbar-right">
+          <a href="mailto:contato@cacambaexpress.com.br">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            contato@cacambaexpress.com.br
+          </a>
+          <a href="tel:+5511999999999">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            (11) 9999-9999
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-inner">
+        <a href="/" class="logo">
+          <span class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+          </span>
+          Caçamba<strong>Express</strong>
+        </a>
+        <div class="nav-links">
+          <a href="#servicos">Serviços</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#precos">Preços</a>
+          <a href="#contato">Contato</a>
+        </div>
+        <div class="nav-cta">
+          <a href="tel:+5511999999999" class="nav-phone">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            (11) 9999-9999
+          </a>
+          <a href="https://wa.me/5511999999999" class="btn-cta" target="_blank" rel="noopener">
+            Orçamento grátis
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="tag-dot"></span>
+            Entrega em até 2 horas
+          </div>
+          <h1>Aluguel de Caçamba em <em>São Paulo</em></h1>
+          <p class="hero-desc">
+            Entulho de reforma, demolição ou limpeza de terreno. Atendemos toda São Paulo e Grande SP com rapidez, nota fiscal e destinação ambiental correta.
+          </p>
+          <div class="hero-trust">
+            <div class="trust-stars">★★★★★</div>
+            <span><strong>4,9</strong> · +2.000 clientes atendidos</span>
+          </div>
+          <div class="hero-actions">
+            <a href="https://wa.me/5511999999999?text=Quero+um+or%C3%A7amento+de+ca%C3%A7amba" class="btn-primary" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir orçamento grátis
+            </a>
+            <a href="tel:+5511999999999" class="btn-ghost">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+              Ligar agora
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-image-col">
+          <div class="hero-photo">
+            <!-- Placeholder visual de caçamba -->
+            <div class="photo-placeholder">
+              <div class="truck-illustration">
+                <div class="truck-body">
+                  <div class="truck-cab"></div>
+                  <div class="truck-bed">
+                    <div class="bed-stripe"></div>
+                    <div class="bed-stripe"></div>
+                    <div class="bed-stripe"></div>
+                  </div>
+                </div>
+                <div class="truck-wheels">
+                  <div class="wheel"></div>
+                  <div class="wheel"></div>
+                  <div class="wheel"></div>
+                </div>
+              </div>
+              <p class="placeholder-label">Frota própria — entrega rápida</p>
+            </div>
+          </div>
+          <div class="hero-card floating-card">
+            <div class="card-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <strong>Licença ambiental</strong>
+              <span>Destinação correta do entulho</span>
+            </div>
+          </div>
+          <div class="hero-card floating-card card-2">
+            <div class="card-icon-wrap orange">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <strong>Entrega em 2h</strong>
+              <span>São Paulo e região</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <strong>+2.000</strong>
+          <span>Clientes atendidos</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>15 anos</strong>
+          <span>No mercado</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>24h</strong>
+          <span>Suporte disponível</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>100%</strong>
+          <span>Com nota fiscal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVIÇOS -->
+    <section class="services" id="servicos">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-tag">Nossos serviços</div>
+          <h2>Para que tipo de obra<br />posso usar caçamba?</h2>
+          <p>Atendemos todo tipo de geração de entulho — de pequenas reformas a grandes demolições.</p>
+        </div>
+        <div class="services-grid">
+          {services.map((s) => (
+            <div class="service-card">
+              <div class="service-icon" set:html={s.icon} />
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+              <a href="https://wa.me/5511999999999" class="service-link" target="_blank" rel="noopener">
+                Solicitar
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section class="how-it-works" id="como-funciona">
+      <div class="container how-inner">
+        <div class="how-text">
+          <div class="section-tag">Como funciona</div>
+          <h2>Simples e rápido,<br />do início ao fim</h2>
+          <p>Sem burocracia. Você solicita, a gente entrega. Quando terminar, é só chamar para buscar.</p>
+          <a href="https://wa.me/5511999999999" class="btn-primary" target="_blank" rel="noopener">
+            Solicitar agora
+          </a>
+        </div>
+        <div class="how-steps">
+          {steps.map((s, i) => (
+            <div class="how-step">
+              <div class="step-num">{s.num}</div>
+              <div class="step-body">
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+              </div>
+              {i < steps.length - 1 && <div class="step-connector"></div>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PREÇOS -->
+    <section class="pricing" id="precos">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-tag">Tabela de preços</div>
+          <h2>Qual o tamanho<br />ideal para você?</h2>
+          <p>Escolha conforme o volume de entulho. Em dúvida, nossos atendentes te ajudam a decidir.</p>
+        </div>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div class="p-size">2 m³</div>
+            <div class="p-name">Pequena</div>
+            <ul class="p-features">
+              <li><span>✓</span> Reformas de banheiro ou cozinha</li>
+              <li><span>✓</span> Limpeza de quintal</li>
+              <li><span>✓</span> Pequenas quantidades de entulho</li>
+            </ul>
+            <div class="p-price"><em>R$</em> 280</div>
+            <span class="p-period">locação até 7 dias</span>
+            <a href="https://wa.me/5511999999999?text=Quero+ca%C3%A7amba+2m%C2%B3" class="btn-outline" target="_blank" rel="noopener">Solicitar esta</a>
+          </div>
+
+          <div class="pricing-card featured">
+            <div class="p-badge">Mais pedida</div>
+            <div class="p-size">4 m³</div>
+            <div class="p-name">Média</div>
+            <ul class="p-features">
+              <li><span>✓</span> Reformas de ambientes inteiros</li>
+              <li><span>✓</span> Entulho de construção</li>
+              <li><span>✓</span> Mudanças com volume médio</li>
+            </ul>
+            <div class="p-price"><em>R$</em> 380</div>
+            <span class="p-period">locação até 7 dias</span>
+            <a href="https://wa.me/5511999999999?text=Quero+ca%C3%A7amba+4m%C2%B3" class="btn-primary" target="_blank" rel="noopener">Solicitar esta</a>
+          </div>
+
+          <div class="pricing-card">
+            <div class="p-size">6 m³</div>
+            <div class="p-name">Grande</div>
+            <ul class="p-features">
+              <li><span>✓</span> Demolições parciais</li>
+              <li><span>✓</span> Obras de grande porte</li>
+              <li><span>✓</span> Limpeza de terreno</li>
+            </ul>
+            <div class="p-price"><em>R$</em> 480</div>
+            <span class="p-period">locação até 7 dias</span>
+            <a href="https://wa.me/5511999999999?text=Quero+ca%C3%A7amba+6m%C2%B3" class="btn-outline" target="_blank" rel="noopener">Solicitar esta</a>
+          </div>
+        </div>
+        <p class="pricing-note">* Valores para São Paulo capital. Consulte para outras regiões. Frete de entrega e retirada incluído.</p>
+      </div>
+    </section>
+
+    <!-- POR QUE NÓS -->
+    <section class="why-us">
+      <div class="container why-inner">
+        <div class="why-image">
+          <div class="why-img-placeholder">
+            <div class="why-icon-grid">
+              <div class="why-icon-cell">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                <span>Licença ambiental</span>
+              </div>
+              <div class="why-icon-cell">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+                <span>Frota própria</span>
+              </div>
+              <div class="why-icon-cell">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
+                <span>Nota fiscal</span>
+              </div>
+              <div class="why-icon-cell">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+                <span>Entrega em 2h</span>
+              </div>
+            </div>
+          </div>
+          <div class="why-years-badge">
+            <strong>15</strong>
+            <span>anos de<br />experiência</span>
+          </div>
+        </div>
+        <div class="why-content">
+          <div class="section-tag">Por que nos escolher</div>
+          <h2>Empresa séria,<br />serviço com segurança</h2>
+          <p>Somos uma empresa licenciada com frota própria. Não terceirizamos coleta nem destinação. Cada caçamba tem rastreamento e destinação em local credenciado pela Prefeitura de São Paulo.</p>
+          <div class="why-list">
+            <div class="why-item">
+              <div class="why-check">✓</div>
+              <div>
+                <strong>Licença ambiental ativa</strong>
+                <p>Destinação correta conforme exigência da Prefeitura de São Paulo.</p>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-check">✓</div>
+              <div>
+                <strong>Frota 100% própria</strong>
+                <p>Caminhões modernos e motoristas treinados. Sem intermediários.</p>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-check">✓</div>
+              <div>
+                <strong>Nota fiscal para toda locação</strong>
+                <p>Ideal para condomínios, empresas e obras que precisam de comprovante.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="cta-band" id="contato">
+      <div class="container cta-inner">
+        <div>
+          <h2>Precisa de caçamba agora?</h2>
+          <p>Atendemos 7 dias por semana das 6h às 22h. Entrega expressa disponível.</p>
+        </div>
+        <div class="cta-band-buttons">
+          <a href="https://wa.me/5511999999999" class="btn-white" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a href="tel:+5511999999999" class="btn-white-outline">
+            (11) 9999-9999
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo logo-light">
+            <span class="logo-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+            </span>
+            Caçamba<strong>Express</strong>
+          </a>
+          <p>Aluguel de caçamba para entulho em São Paulo e Grande SP. Entrega rápida, com nota fiscal e destinação responsável.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="#">Reforma residencial</a></li>
+            <li><a href="#">Obra comercial</a></li>
+            <li><a href="#">Limpeza de terreno</a></li>
+            <li><a href="#">Mudança e descarte</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre nós</a></li>
+            <li><a href="#">Como funciona</a></li>
+            <li><a href="#">Preços</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <li>
+              <a href="tel:+5511999999999">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+                (11) 9999-9999
+              </a>
+            </li>
+            <li>
+              <a href="mailto:contato@cacambaexpress.com.br">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                contato@cacambaexpress.com.br
+              </a>
+            </li>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Seg–Dom, 6h–22h
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container footer-bottom-inner">
+          <span>© 2024 CaçambaExpress · CNPJ 00.000.000/0001-00</span>
+          <div class="footer-bottom-links">
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Termos de Uso</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
 </html>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #F97316;
+    --orange-hover: #EA6B05;
+    --yellow: #FCD34D;
+    --dark: #1A1A18;
+    --text: #2D2D2B;
+    --text-muted: #6B6B66;
+    --text-light: #9A9A94;
+    --bg: #FAFAF8;
+    --bg2: #F3F3EF;
+    --border: #E8E8E3;
+    --white: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--dark);
+    color: #a0a09a;
+    font-size: 0.8rem;
+  }
+  .topbar-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-left, .topbar-right { display: flex; align-items: center; gap: 20px; }
+  .topbar-left span, .topbar-right a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #a0a09a;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .topbar-right a:hover { color: var(--orange); }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+  }
+  .nav-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-size: 1.25rem;
+    color: var(--dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .logo strong { color: var(--orange); }
+  .logo-icon {
+    background: var(--orange);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); background: rgba(249,115,22,0.06); }
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .nav-phone {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    transition: color 0.2s;
+  }
+  .nav-phone:hover { color: var(--orange); }
+
+  /* BUTTONS */
+  .btn-cta, .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--orange);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 11px 22px;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(249,115,22,0.25);
+  }
+  .btn-cta:hover, .btn-primary:hover {
+    background: var(--orange-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(249,115,22,0.35);
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 11px 22px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+  .btn-outline {
+    display: block;
+    text-align: center;
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    border: 1.5px solid var(--orange);
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { background: var(--orange); color: #fff; }
+  .btn-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  }
+  .btn-white:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .btn-white-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    border: 2px solid rgba(255,255,255,0.5);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-white-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+  /* HERO */
+  .hero {
+    background: var(--white);
+    padding: 60px 28px 80px;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: rgba(249,115,22,0.08);
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .tag-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--orange);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  h1 {
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--orange);
+    position: relative;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 460px;
+    margin-bottom: 24px;
+  }
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .trust-stars { color: #FBBF24; font-size: 1.1rem; letter-spacing: 2px; }
+  .hero-trust span { font-size: 0.9rem; color: var(--text-muted); }
+  .hero-trust strong { color: var(--text); }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* HERO IMAGE */
+  .hero-image-col { position: relative; }
+  .hero-photo {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: var(--bg2);
+  }
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background: linear-gradient(135deg, #FEF3C7 0%, #FED7AA 50%, #FDBA74 100%);
+  }
+  .truck-illustration { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .truck-body {
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+  }
+  .truck-cab {
+    width: 70px;
+    height: 60px;
+    background: var(--orange);
+    border-radius: 6px 6px 0 0;
+    position: relative;
+  }
+  .truck-cab::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px;
+    height: 22px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 3px;
+  }
+  .truck-bed {
+    width: 120px;
+    height: 50px;
+    background: var(--dark);
+    border-radius: 0 4px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px;
+  }
+  .bed-stripe {
+    height: 8px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--orange) 0,
+      var(--orange) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+  .truck-wheels {
+    display: flex;
+    gap: 48px;
+    padding: 0 16px;
+    margin-top: -4px;
+  }
+  .wheel {
+    width: 28px;
+    height: 28px;
+    background: var(--dark);
+    border-radius: 50%;
+    border: 4px solid #666;
+    position: relative;
+  }
+  .wheel::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: #888;
+    border-radius: 50%;
+  }
+  .placeholder-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--orange-hover);
+  }
+
+  .floating-card {
+    position: absolute;
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    font-size: 0.85rem;
+    min-width: 200px;
+  }
+  .floating-card strong { display: block; font-weight: 700; color: var(--dark); }
+  .floating-card span { color: var(--text-muted); font-size: 0.78rem; }
+  .card-icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: rgba(22,163,74,0.1);
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-icon-wrap.orange { background: rgba(249,115,22,0.1); color: var(--orange); }
+  .floating-card { bottom: 24px; left: -24px; }
+  .card-2 { bottom: auto; left: auto; top: 24px; right: -24px; }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--dark);
+    padding: 28px 0;
+  }
+  .stats-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 48px;
+  }
+  .stat-item strong {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+  }
+  .stat-item span {
+    font-size: 0.78rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .stat-divider { width: 1px; height: 40px; background: #333; }
+
+  /* SECTION HEAD */
+  .section-head {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .section-head p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 96px 0;
+    background: var(--bg);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .service-card:hover {
+    border-color: var(--orange);
+    box-shadow: 0 8px 32px rgba(249,115,22,0.08);
+    transform: translateY(-2px);
+  }
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(249,115,22,0.08);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--orange);
+    flex-shrink: 0;
+  }
+  .service-icon svg { width: 24px; height: 24px; }
+  .service-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+  .service-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--orange);
+    text-decoration: none;
+    transition: gap 0.2s;
+    margin-top: 4px;
+  }
+  .service-link:hover { gap: 10px; }
+
+  /* HOW IT WORKS */
+  .how-it-works {
+    padding: 96px 0;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .how-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .how-text h2, .how-text .section-tag { text-align: left; }
+  .how-text p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .how-steps { display: flex; flex-direction: column; gap: 0; }
+  .how-step {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    padding-bottom: 32px;
+  }
+  .how-step:last-child { padding-bottom: 0; }
+  .step-num {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--orange);
+    background: rgba(249,115,22,0.1);
+    border: 1.5px solid rgba(249,115,22,0.2);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .step-body h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .step-body p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+  .step-connector {
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    bottom: 0;
+    width: 1px;
+    background: repeating-linear-gradient(to bottom, var(--border) 0, var(--border) 4px, transparent 4px, transparent 8px);
+  }
+
+  /* PRICING */
+  .pricing {
+    padding: 96px 0;
+    background: var(--bg);
+  }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .pricing-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pricing-card.featured {
+    border-color: var(--orange);
+    box-shadow: 0 8px 40px rgba(249,115,22,0.12);
+  }
+  .p-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--orange);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .p-size {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .p-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .p-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 4px 0 12px;
+    flex: 1;
+  }
+  .p-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .p-features li span {
+    color: #16a34a;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .p-price {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .p-price em {
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    vertical-align: super;
+    margin-right: 2px;
+  }
+  .p-period {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+  .pricing-note {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: center;
+  }
+
+  /* WHY US */
+  .why-us {
+    padding: 96px 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+  }
+  .why-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .why-img-placeholder {
+    background: var(--bg2);
+    border-radius: 16px;
+    padding: 40px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .why-icon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+  }
+  .why-icon-cell {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    color: var(--orange);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .why-icon-cell:hover {
+    border-color: var(--orange);
+    box-shadow: 0 4px 16px rgba(249,115,22,0.08);
+  }
+  .why-icon-cell span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+  .why-image { position: relative; }
+  .why-years-badge {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    background: var(--orange);
+    color: #fff;
+    border-radius: 14px;
+    padding: 16px 20px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(249,115,22,0.3);
+  }
+  .why-years-badge strong {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .why-years-badge span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.9;
+    line-height: 1.4;
+  }
+  .why-content .section-tag { text-align: left; }
+  .why-content h2 { text-align: left; }
+  .why-content > p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .why-list { display: flex; flex-direction: column; gap: 20px; }
+  .why-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .why-check {
+    width: 28px;
+    height: 28px;
+    background: rgba(22,163,74,0.1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #16a34a;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+  }
+  .why-item strong {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .why-item p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* CTA BAND */
+  .cta-band {
+    background: var(--orange);
+    padding: 64px 0;
+  }
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .cta-band h2 { color: #fff; text-align: left; margin-bottom: 8px; }
+  .cta-band p { color: rgba(255,255,255,0.85); font-size: 1rem; }
+  .cta-band-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer { background: var(--dark); }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding: 64px 28px;
+  }
+  .footer-brand .logo-light { color: #fff; margin-bottom: 16px; display: inline-flex; }
+  .footer-brand .logo-light strong { color: var(--orange); }
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .footer-socials { display: flex; gap: 10px; }
+  .footer-socials a {
+    width: 36px;
+    height: 36px;
+    background: #2A2A27;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .footer-socials a:hover { background: var(--orange); color: #fff; }
+  .footer-col h4 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 0.88rem;
+  }
+  .footer-col li svg { flex-shrink: 0; }
+  .footer-col a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #888;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--orange); }
+  .footer-bottom {
+    border-top: 1px solid #2A2A27;
+    padding: 20px 28px;
+  }
+  .footer-bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  .footer-bottom-links { display: flex; gap: 20px; }
+  .footer-bottom-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+  }
+  .footer-bottom-links a:hover { color: var(--orange); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-image-col { order: -1; }
+    .floating-card { display: none; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .how-inner { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .why-inner { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-brand { grid-column: 1 / -1; }
+    .cta-inner { flex-direction: column; text-align: center; }
+    .cta-band h2 { text-align: center; }
+    .stat-item { padding: 8px 24px; }
+  }
+  @media (max-width: 600px) {
+    .topbar-left { display: none; }
+    .nav-links { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .stats-inner { gap: 0; }
+    .stat-divider { display: none; }
+    .stat-item { padding: 12px 16px; border-bottom: 1px solid #333; width: 100%; text-align: center; }
+  }
+</style>
